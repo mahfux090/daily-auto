@@ -1,0 +1,26 @@
+name: Daily CP Auto Commit (2x)
+
+on:
+  schedule:
+    - cron: '0 18 * * *'   # 12:00 AM BD
+    - cron: '0 6 * * *'    # 12:00 PM BD
+  workflow_dispatch:
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update CP log
+        run: |
+          echo "$(date '+%Y-%m-%d %H:%M') | Solved 1 CP problem" >> daily.txt
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add daily.txt
+          git commit -m "daily cp progress"
+          git push
