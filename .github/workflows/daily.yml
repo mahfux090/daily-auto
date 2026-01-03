@@ -1,9 +1,12 @@
 name: Daily CP Auto Commit (2x)
 
+permissions:
+  contents: write
+
 on:
   schedule:
-    - cron: '0 18 * * *'   # 12:00 AM BD
-    - cron: '0 6 * * *'    # 12:00 PM BD
+    - cron: '0 18 * * *'
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 jobs:
